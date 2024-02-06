@@ -35,12 +35,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/nav_color"
+        android:background="@color/nav_color"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         app:fabAlignmentMode="center"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleMargin="12dp"
+        app:fabCradleRoundedCornerRadius="8dp"
         app:fabCradleVerticalOffset="8dp">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -50,6 +50,11 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             app:menu="@menu/nav_menu"
+            android:layout_margin="0dp"
+            android:background="@drawable/rect"
+            android:elevation="0dp"
+            android:padding="10dp"
+            app:itemRippleColor="@android:color/transparent"
 
             />
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -60,9 +65,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/main_blue"
         android:src="@drawable/ic_add"
-        android:tintMode="@color/white"
+        android:tint="@color/white"
         app:layout_anchor="@id/bottom_bar"
-
         />
 
     <include

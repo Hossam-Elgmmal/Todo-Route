@@ -7,6 +7,7 @@
     <color name="title_color">#FFFFFF</color>
     <color name="nav_color">#FFFFFF</color>
     <color name="nav_item">#C8C9CB</color>
+    <color name="text_color">#060E1E</color>
 
 
 </resources>

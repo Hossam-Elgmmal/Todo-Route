@@ -5,4 +5,5 @@
     <color name="title_color">#060E1E</color>
     <color name="nav_color">#141922</color>
     <color name="nav_item">#C8C9CB</color>
+    <color name="text_color">#FFFFFF</color>
 </resources>
