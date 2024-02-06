@@ -2,8 +2,33 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ToDoRoute" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="floatingActionButtonStyle">@style/fab_style</item>
+        <item name="android:statusBarColor">@color/main_blue</item>
     </style>
 
     <style name="Theme.ToDoRoute" parent="Base.Theme.ToDoRoute" />
+
+    <style name="Base.Theme.ToDoRoute.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/bg_color</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="nav_style">
+        <item name="android:background">@color/nav_color</item>
+        <item name="itemIconSize">32dp</item>
+        <item name="itemIconTint">@color/nav_selector</item>
+        <item name="itemActiveIndicatorStyle">@null</item>
+        <item name="itemBackground">@null</item>
+        <item name="labelVisibilityMode">unlabeled</item>
+    </style>
+
+
+    <style name="fab_rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="fab_style" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/fab_rounded</item>
+    </style>
 </resources>
