@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_color"
+    android:padding="12dp">
+
+    <com.zerobranch.layout.SwipeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:autoMovingSensitivity="1000"
+        app:draggedItem="@id/drag_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftItem="@id/left_view"
+        app:swipeDirection="right">
+
+
+        <TextView
+            android:id="@+id/left_view"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:adjustViewBounds="true"
+            android:background="@drawable/delete_rect"
+            android:drawableTop="@drawable/ic_delete"
+            android:gravity="center"
+
+            android:paddingVertical="26dp"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/drag_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/nav_color"
+            app:cardCornerRadius="25dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/line_drag"
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/blue_rect"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/task_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/main_blue"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@id/line_drag"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="play basketball" />
+
+                <ImageView
+                    android:id="@+id/clock_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_margin="8dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_clock"
+                    app:layout_constraintStart_toStartOf="@id/task_text"
+                    app:layout_constraintTop_toBottomOf="@id/task_text"
+                    app:tint="@color/text_color" />
+
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/clock_ic"
+                    app:layout_constraintStart_toEndOf="@id/clock_ic"
+                    app:layout_constraintTop_toTopOf="@id/clock_ic"
+                    tools:text="12:10 pm" />
+
+                <ImageView
+                    android:id="@+id/check_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_margin="16dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/blue_rect"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="8dp"
+                    android:src="@drawable/ic_check"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </com.zerobranch.layout.SwipeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,9 @@ dependencies {
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
-    //
+    //calendarview
     implementation("com.github.prolificinteractive:material-calendarview:2.0.0")
+    //SwipeLayout
+    implementation("com.github.zerobranch:SwipeLayout:1.3.1")
 
 }
