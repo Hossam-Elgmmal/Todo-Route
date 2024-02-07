@@ -3,4 +3,6 @@
     <string name="todo">To Do list</string>
     <string name="tasks">Tasks</string>
     <string name="settings">Settings</string>
+    <string name="mode">Mode</string>
+    <string name="language">Language</string>
 </resources>
