@@ -8,4 +8,6 @@
     <string name="mode_text">Day</string>
     <string name="lang_text">English</string>
     <string name="task_details">Task details</string>
+    <string name="save">Save Changes</string>
+    <string name="edit_task">Edit Task</string>
 </resources>

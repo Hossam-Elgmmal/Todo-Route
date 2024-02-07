@@ -3,6 +3,7 @@
     <style name="Base.Theme.ToDoRoute" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="floatingActionButtonStyle">@style/fab_style</item>
         <item name="android:statusBarColor">@color/main_blue</item>
+        <item name="colorPrimary">@color/main_blue</item>
         <item name="fontFamily">@font/poppins_bold</item>
     </style>
 
