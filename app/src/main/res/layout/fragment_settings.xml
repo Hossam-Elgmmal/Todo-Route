@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:drawSelectorOnTop="true"
-        android:hint="@string/language"
+
         app:boxStrokeColor="@color/main_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/nav_color"
+            android:text="@string/lang_text"
             android:inputType="none"
             android:padding="8dp"
             android:paddingStart="50dp"
@@ -74,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:drawSelectorOnTop="true"
-        android:hint="@string/mode"
         app:boxStrokeColor="@color/main_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +89,7 @@
             android:layout_height="wrap_content"
             android:background="@color/nav_color"
             android:inputType="none"
+            android:text="@string/mode_text"
             android:padding="8dp"
             android:paddingStart="50dp"
             android:textColor="@color/main_blue" />

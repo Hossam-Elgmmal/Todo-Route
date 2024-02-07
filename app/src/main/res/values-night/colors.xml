@@ -6,4 +6,5 @@
     <color name="nav_color">#141922</color>
     <color name="nav_item">#C8C9CB</color>
     <color name="text_color">#FFFFFF</color>
+    <color name="alpha_color">#51BCBABA</color>
 </resources>
