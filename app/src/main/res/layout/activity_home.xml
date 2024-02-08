@@ -9,7 +9,6 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
-        app:liftOnScroll="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/main_blue">
@@ -17,7 +16,6 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
             android:layout_height="wrap_content">
 
             <TextView
@@ -34,7 +32,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@color/nav_color"
         app:contentInsetEnd="0dp"
@@ -54,7 +52,6 @@
             android:layout_margin="0dp"
             android:background="@drawable/rect"
             android:elevation="0dp"
-            android:padding="10dp"
             app:itemRippleColor="@android:color/transparent"
 
             />

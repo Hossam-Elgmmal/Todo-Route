@@ -14,6 +14,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/settings"
+        android:textColor="@color/title_color"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/lang"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/lang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
