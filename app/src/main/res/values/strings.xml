@@ -10,4 +10,9 @@
     <string name="task_details">Task details</string>
     <string name="save">Save Changes</string>
     <string name="edit_task">Edit Task</string>
+    <string name="new_task">New Task</string>
+    <string name="dd_mm_yyyy">dd/mm/yyyy</string>
+    <string name="hh_mm">hh:mm</string>
+    <string name="task_title">title</string>
+    <string name="description">description</string>
 </resources>
