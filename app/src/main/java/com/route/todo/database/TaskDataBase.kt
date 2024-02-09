@@ -10,7 +10,7 @@ import com.route.todo.database.models.Task
 @Database(entities = [Task::class], version = 1)
 @TypeConverters(value = [DateTimeConverter::class])
 abstract class TaskDataBase : RoomDatabase() {
-    abstract fun taskDao(): TaskDao
+    abstract fun getDao(): TaskDao
 
     companion object {
         private var INSTANCE: TaskDataBase? = null

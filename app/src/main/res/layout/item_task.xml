@@ -12,12 +12,11 @@
         android:layout_height="120dp"
         app:autoMovingSensitivity="1000"
         app:draggedItem="@id/drag_item"
+        android:background="@drawable/delete_rect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:leftItem="@id/left_view"
         app:swipeDirection="right">
-
-
         <TextView
             android:id="@+id/left_view"
             android:layout_width="90dp"
@@ -27,9 +26,8 @@
             android:background="@drawable/delete_rect"
             android:drawableTop="@drawable/ic_delete"
             android:gravity="center"
-
             android:paddingVertical="26dp"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -38,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/nav_color"
-            app:cardCornerRadius="25dp">
+            app:cardCornerRadius="15dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -59,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:textColor="@color/main_blue"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toEndOf="@id/line_drag"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="play basketball" />
@@ -67,7 +65,7 @@
                 <ImageView
                     android:id="@+id/clock_ic"
                     android:layout_width="wrap_content"
-                    android:layout_height="28dp"
+                    android:layout_height="22dp"
                     android:layout_margin="8dp"
                     android:adjustViewBounds="true"
                     android:src="@drawable/ic_clock"
@@ -81,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:textColor="@color/text_color"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/clock_ic"
                     app:layout_constraintStart_toEndOf="@id/clock_ic"
                     app:layout_constraintTop_toTopOf="@id/clock_ic"
@@ -95,7 +93,7 @@
                     android:adjustViewBounds="true"
                     android:background="@drawable/blue_rect"
                     android:paddingHorizontal="18dp"
-                    android:paddingVertical="8dp"
+                    android:paddingVertical="12dp"
                     android:src="@drawable/ic_check"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

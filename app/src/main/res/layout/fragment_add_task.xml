@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/Widget.Design.BottomSheet.Modal"
     android:background="@drawable/dialog_rect">
 
     <View
@@ -49,7 +50,6 @@
             android:padding="22dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/enter_description"
         android:layout_width="match_parent"
@@ -76,12 +76,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/hh_mm"
+        android:hint="@string/time"
         app:boxStrokeColor="@color/main_blue"
         app:layout_constraintEnd_toStartOf="@id/enter_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enter_description"
-        app:layout_constraintWidth_percent="0.25">
+        app:layout_constraintWidth_percent="0.35">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/the_time"
@@ -89,24 +89,24 @@
             android:layout_height="wrap_content"
             android:background="@color/nav_color"
             android:gravity="center"
-            android:inputType="time"
+            android:focusable="false"
+            android:inputType="none"
             android:maxLines="1"
             android:padding="22dp" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/enter_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="@string/dd_mm_yyyy"
+        android:hint="@string/date"
         app:boxStrokeColor="@color/main_blue"
         app:layout_constraintBottom_toBottomOf="@id/enter_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/enter_time"
         app:layout_constraintTop_toTopOf="@id/enter_time"
-        app:layout_constraintWidth_percent="0.35">
+        app:layout_constraintWidth_percent="0.4">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/the_date"
@@ -114,7 +114,8 @@
             android:layout_height="wrap_content"
             android:background="@color/nav_color"
             android:gravity="center"
-            android:inputType="date"
+            android:focusable="false"
+            android:inputType="none"
             android:maxLines="1"
             android:padding="22dp" />
     </com.google.android.material.textfield.TextInputLayout>

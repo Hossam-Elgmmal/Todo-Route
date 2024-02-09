@@ -8,10 +8,10 @@ import java.util.Date
 data class Task(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int?,
-    val title: String? = null,
-    val description: String? = null,
-    val date: Date? = null,
-    val isDone: Boolean = false
+    var id: Int? = null,
+    var title: String? = null,
+    var details: String? = null,
+    var date: Date? = null,
+    var isDone: Boolean = false
 
 )
