@@ -1,5 +1,6 @@
 package com.route.todo.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,9 @@ class TasksFragment : Fragment() {
 
     lateinit var binding: FragmentTasksBinding
     private lateinit var adapter: tasksAdapter
-    private lateinit var tasksList: List<Task>
+    private lateinit var tasksList: MutableList<Task>
     var today = LocalDateTime.now()
+    lateinit var taskDao: TaskDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,25 +35,41 @@ class TasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val taskDao = TaskDataBase.getInstance(requireContext()).getDao()
+        taskDao = TaskDataBase.getInstance(requireContext()).getDao()
 
         initializeRecyclerView()
 
         binding.calendarView.setOnDateChangedListener { _, date, _ ->
             val dateTime = LocalDateTime.of(date.year, date.month, date.day, 0, 0)
-            val list = taskDao.getTasksInDay(dateTime, dateTime.plusDays(1))
-            adapter.updateData(list)
+            tasksList = taskDao.getTasksInDay(dateTime, dateTime.plusDays(1)).toMutableList()
+            adapter.updateData(tasksList)
         }
 
-        showAllTasks(taskDao)
+        showAllTasks()
 
-        hideAllTasks(taskDao)
+        hideAllTasks()
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initializeRecyclerView() {
         today = today.withHour(0).withMinute(0)
         adapter = tasksAdapter(null)
+
+        adapter.onDeleteListener = { task, position ->
+            taskDao.deleteTask(task)
+            tasksList.removeAt(position)
+            adapter.notifyItemRemoved(position)
+        }
+        adapter.onDoneListener = { task, position ->
+            task.isDone = !task.isDone
+            taskDao.updateTask(task)
+            adapter.notifyItemChanged(position)
+        }
+        adapter.onCardClickListener = { task, position ->
+            // TODO go to DetailTaskActivity
+        }
+
         binding.recycler.adapter = adapter
         tasksByDate(today)
     }
@@ -60,28 +78,27 @@ class TasksFragment : Fragment() {
         val day = CalendarDay.from(date.year, date.monthValue, date.dayOfMonth)
         binding.calendarView.selectedDate = day
         binding.calendarView.setCurrentDate(day, true)
-        tasksList = TaskDataBase.getInstance(requireContext()).getDao()
-            .getTasksInDay(date, date.plusDays(1))
+        tasksList = taskDao.getTasksInDay(date, date.plusDays(1)).toMutableList()
         adapter.updateData(tasksList)
     }
 
-    private fun showAllTasks(taskDao: TaskDao) {
+    private fun showAllTasks() {
         binding.calendarView.setOnTitleClickListener {
             binding.calendarView.visibility = View.GONE
             binding.allTasks.visibility = View.VISIBLE
-            val list = taskDao.getAllTasks()
-            adapter.updateData(list)
+            tasksList = taskDao.getAllTasks().toMutableList()
+            adapter.updateData(tasksList)
         }
     }
 
-    private fun hideAllTasks(taskDao: TaskDao) {
+    private fun hideAllTasks() {
         binding.allTasks.setOnClickListener {
             binding.allTasks.visibility = View.GONE
             binding.calendarView.visibility = View.VISIBLE
             with(binding.calendarView.selectedDate) {
                 val dateTime = LocalDateTime.of(this?.year!!, this.month, this.day, 0, 0)
-                val list = taskDao.getTasksInDay(dateTime, dateTime.plusDays(1))
-                adapter.updateData(list)
+                tasksList = taskDao.getTasksInDay(dateTime, dateTime.plusDays(1)).toMutableList()
+                adapter.updateData(tasksList)
             }
         }
     }

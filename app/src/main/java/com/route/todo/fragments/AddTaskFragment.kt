@@ -109,12 +109,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         } else {
             binding.name.error = null
         }
-        if (binding.details.text?.isEmpty() == true || binding.details.text?.isBlank() == true) {
-            binding.details.error = "required"
-            return false
-        } else {
-            binding.details.error = null
-        }
+
         return true
     }
 }

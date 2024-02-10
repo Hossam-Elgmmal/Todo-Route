@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         app:autoMovingSensitivity="1000"
-        app:draggedItem="@id/drag_item"
+        app:draggedItem="@id/card_dragged"
         android:background="@drawable/delete_rect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftItem="@id/left_view"
+        app:leftItem="@id/delete_view"
         app:swipeDirection="right">
         <TextView
-            android:id="@+id/left_view"
+            android:id="@+id/delete_view"
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -32,7 +32,7 @@
             android:textSize="16sp" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/drag_item"
+            android:id="@+id/card_dragged"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/nav_color"
@@ -42,13 +42,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <View
+                <ImageView
                     android:id="@+id/line_drag"
-                    android:layout_width="6dp"
+                    android:layout_width="8dp"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
+                    android:padding="2dp"
                     android:background="@drawable/blue_rect"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -86,7 +88,7 @@
                     tools:text="12:10 pm" />
 
                 <ImageView
-                    android:id="@+id/check_ic"
+                    android:id="@+id/done_view"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_margin="16dp"
