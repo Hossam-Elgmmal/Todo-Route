@@ -34,7 +34,7 @@ class tasksAdapter(private var tasksList: List<Task>?) : Adapter<tasksAdapter.Ta
 
     class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root) {
 
-        private var timeFormat = DateTimeFormatter.ofPattern("E hh:mm a")
+        private var timeFormat = DateTimeFormatter.ofPattern("E hh:mm a dd/MM/yyyy")
         fun bind(task: Task) {
             binding.taskText.text = task.title
             binding.timeText.text = task.date?.format(timeFormat)

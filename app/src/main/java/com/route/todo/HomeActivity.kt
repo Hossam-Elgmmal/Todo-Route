@@ -10,6 +10,7 @@ import com.route.todo.fragments.TasksFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    val tasksFragment = TasksFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -22,12 +23,15 @@ class HomeActivity : AppCompatActivity() {
     private fun navigate() {
         binding.addBtn.setOnClickListener {
             val bottomSheet = AddTaskFragment()
+            bottomSheet.onTaskAddedListener = { date ->
+                tasksFragment.tasksByDate(date)
+            }
             bottomSheet.show(supportFragmentManager, null)
         }
         binding.navView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.tasks -> {
-                    pushFragment(TasksFragment())
+                    pushFragment(tasksFragment)
                 }
 
                 R.id.settings -> {

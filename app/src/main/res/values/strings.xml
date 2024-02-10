@@ -16,4 +16,5 @@
     <string name="task_title">title</string>
     <string name="description">description</string>
     <string name="delete">Delete</string>
+    <string name="all_tasks">All Tasks</string>
 </resources>

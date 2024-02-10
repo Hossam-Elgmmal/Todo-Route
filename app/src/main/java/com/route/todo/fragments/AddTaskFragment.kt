@@ -20,6 +20,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     private var dateTime = LocalDateTime.now()
     private var dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private var timeFormat = DateTimeFormatter.ofPattern("hh:mm a")
+    lateinit var onTaskAddedListener: (LocalDateTime) -> Unit
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,6 +96,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
                 TaskDataBase.getInstance(requireContext())
                     .getDao()
                     .insertTask(task)
+                dateTime = dateTime.withHour(0).withMinute(0)
+                onTaskAddedListener(dateTime)
                 dismiss()
             }
         }

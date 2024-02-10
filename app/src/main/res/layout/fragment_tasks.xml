@@ -29,13 +29,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/all_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/nav_color"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/all_tasks"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendar_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/nav_color"
                 android:padding="8dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:mcv_calendarMode="week"
                 app:mcv_dateTextAppearance="@style/CustomText"
