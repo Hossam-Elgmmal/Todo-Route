@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.route.todo.database.models.Task
 import com.route.todo.databinding.ItemTaskBinding
-import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class tasksAdapter(private var tasksList: List<Task>?) : Adapter<tasksAdapter.TaskViewHolder>() {
 
@@ -34,11 +34,10 @@ class tasksAdapter(private var tasksList: List<Task>?) : Adapter<tasksAdapter.Ta
 
     class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root) {
 
-        @SuppressLint("SimpleDateFormat")
-        val formatter = SimpleDateFormat("EEE hh:mm a")
+        private var timeFormat = DateTimeFormatter.ofPattern("E hh:mm a")
         fun bind(task: Task) {
             binding.taskText.text = task.title
-            binding.timeText.text = formatter.format(task.date!!)
+            binding.timeText.text = task.date?.format(timeFormat)
         }
     }
 }

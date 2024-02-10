@@ -15,6 +15,11 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        navigate()
+
+    }
+
+    private fun navigate() {
         binding.addBtn.setOnClickListener {
             val bottomSheet = AddTaskFragment()
             bottomSheet.show(supportFragmentManager, null)

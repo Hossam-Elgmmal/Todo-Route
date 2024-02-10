@@ -11,12 +11,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.route.todo.database.TaskDataBase
 import com.route.todo.database.models.Task
 import com.route.todo.databinding.FragmentAddTaskBinding
-import java.util.Calendar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AddTaskFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: FragmentAddTaskBinding
-    lateinit var calendar: Calendar
+    private lateinit var binding: FragmentAddTaskBinding
+    private var dateTime = LocalDateTime.now()
+    private var dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    private var timeFormat = DateTimeFormatter.ofPattern("hh:mm a")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,65 +33,63 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        calendar = Calendar.getInstance()
-        var hour = calendar.get(Calendar.HOUR)
-        var min = calendar.get(Calendar.MINUTE)
-        var amPm = if (calendar.get(Calendar.AM_PM) == 0) {
-            "AM"
-        } else
-            "PM"
-        var day = calendar.get(Calendar.DAY_OF_MONTH)
-        var month = calendar.get(Calendar.MONTH)
-        var year = calendar.get(Calendar.YEAR)
+        writeTimeToTextView()
 
+        writeDateToTextView()
+
+        getTimePicker(dateTime.hour, dateTime.minute)
+
+        getDatePicker(dateTime.year, dateTime.monthValue, dateTime.dayOfMonth)
+
+        submitNewTask()
+    }
+
+    private fun writeTimeToTextView() {
         binding.theTime.text = Editable.Factory.getInstance()
-            .newEditable("$hour:$min $amPm")
+            .newEditable(dateTime.format(timeFormat))
+    }
 
+    private fun writeDateToTextView() {
         binding.theDate.text = Editable.Factory.getInstance()
-            .newEditable("$day/${month + 1}/$year")
+            .newEditable(dateTime.format(dateFormat))
+    }
 
+    private fun getTimePicker(hour: Int, min: Int) {
         binding.theTime.setOnClickListener {
-            val picker = TimePickerDialog(requireContext(),
+            val picker = TimePickerDialog(
+                requireContext(),
                 { _, hourOfDay, minute ->
-                    hour = if (hourOfDay > 12) {
-                        hourOfDay - 12
-                    } else
-                        hourOfDay
-                    amPm = if (hourOfDay >= 12) {
-                        "PM"
-                    } else
-                        "AM"
-                    binding.theTime.text = Editable.Factory.getInstance()
-                        .newEditable("$hour:$minute $amPm")
-                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    calendar.set(Calendar.MINUTE, minute)
+                    dateTime = dateTime.withHour(hourOfDay).withMinute(minute)
+                    writeTimeToTextView()
                 }, hour, min, false
             )
             picker.show()
         }
+    }
 
+    private fun getDatePicker(year: Int, month: Int, day: Int) {
         binding.theDate.setOnClickListener {
-
-            val picker = DatePickerDialog(requireContext(),
+            val picker = DatePickerDialog(
+                requireContext(),
                 { _, year, month, dayOfMonth ->
-                    binding.theDate.text = Editable.Factory.getInstance()
-                        .newEditable("$dayOfMonth/${month + 1}/$year")
-                    calendar.set(Calendar.YEAR, year)
-                    calendar.set(Calendar.MONTH, month)
-                }, year, month, day
+                    dateTime =
+                        dateTime.withYear(year).withMonth(month + 1).withDayOfMonth(dayOfMonth)
+                    writeDateToTextView()
+                }, year, month - 1, day
             )
-
             picker.datePicker.minDate = System.currentTimeMillis()
             picker.show()
         }
+    }
 
+    private fun submitNewTask() {
         binding.submitBtn.setOnClickListener {
             if (validateFields()) {
 
                 val task = Task(
                     title = binding.name.text.toString(),
                     details = binding.details.text.toString(),
-                    date = calendar.time
+                    date = dateTime
                 )
 
                 TaskDataBase.getInstance(requireContext())
@@ -97,7 +99,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             }
         }
     }
-
     private fun validateFields(): Boolean {
         if (binding.name.text?.isEmpty() == true || binding.name.text?.isBlank() == true) {
             binding.name.error = "required"
@@ -111,7 +112,6 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         } else {
             binding.details.error = null
         }
-
         return true
     }
 }

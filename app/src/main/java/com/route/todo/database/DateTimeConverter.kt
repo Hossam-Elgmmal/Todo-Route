@@ -1,18 +1,20 @@
 package com.route.todo.database
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class DateTimeConverter {
 
     @TypeConverter
-    fun toDate(dateTime: Long): Date {
-        return Date(dateTime)
+    fun toDate(dateTime: Long): LocalDateTime {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(dateTime), ZoneOffset.UTC)
     }
 
     @TypeConverter
-    fun fromDate(dateTime: Date): Long {
-        return dateTime.time
+    fun fromDate(dateTime: LocalDateTime): Long {
+        return dateTime.atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
     }
 
 

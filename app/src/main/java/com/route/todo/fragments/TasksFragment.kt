@@ -10,6 +10,7 @@ import com.route.todo.database.TaskDataBase
 import com.route.todo.database.models.Task
 import com.route.todo.databinding.FragmentTasksBinding
 
+
 class TasksFragment : Fragment() {
     private lateinit var binding: FragmentTasksBinding
     private lateinit var adapter: tasksAdapter
@@ -31,6 +32,12 @@ class TasksFragment : Fragment() {
 
         tasksList = TaskDataBase.getInstance(requireContext()).getDao().getAllTasks()
         adapter.updateData(tasksList)
+
+//        binding.calendarView.setOnDateChangedListener { widget, date, selected ->
+//            val year = date.year
+//            val month = date.month
+//            val dayOfMonth = date.day
+//         }
 
     }
 }
