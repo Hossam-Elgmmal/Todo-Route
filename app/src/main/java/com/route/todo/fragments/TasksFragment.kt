@@ -1,12 +1,14 @@
 package com.route.todo.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.route.todo.DetailTaskActivity
 import com.route.todo.adapters.tasksAdapter
 import com.route.todo.database.TaskDao
 import com.route.todo.database.TaskDataBase
@@ -67,7 +69,9 @@ class TasksFragment : Fragment() {
             adapter.notifyItemChanged(position)
         }
         adapter.onCardClickListener = { task, position ->
-            // TODO go to DetailTaskActivity
+            val intent = Intent(requireActivity(), DetailTaskActivity::class.java)
+            intent.putExtra("id", task.id)
+            startActivity(intent)
         }
 
         binding.recycler.adapter = adapter

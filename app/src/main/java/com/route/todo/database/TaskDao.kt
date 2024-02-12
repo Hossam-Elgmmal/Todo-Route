@@ -25,4 +25,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM todos WHERE date >= :dayStart AND date < :dayEnd ")
     fun getTasksInDay(dayStart: LocalDateTime, dayEnd: LocalDateTime): List<Task>
+
+    @Query("SELECT * FROM todos WHERE id = :id")
+    fun getTaskById(id: Int): Task
 }

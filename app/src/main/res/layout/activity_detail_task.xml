@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    tools:context=".detailTaskActivity">
+    tools:context=".DetailTaskActivity">
 
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -64,6 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="@string/task_title"
+                app:boxStrokeColor="@color/main_blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_task">
@@ -74,8 +76,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/nav_color"
                     android:inputType="text"
-                    android:textColor="@color/text_color"
-                    tools:text="task_title" />
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -83,6 +84,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="20dp"
+                android:hint="@string/description"
+                app:boxStrokeColor="@color/main_blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/time_field"
@@ -96,17 +99,18 @@
                     android:gravity="top"
                     android:inputType="textMultiLine"
                     android:maxLines="4"
-                    android:textColor="@color/text_color"
-                    tools:text="task_description" />
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--  date / time / save button-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/time_field"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/main_blue"
                 android:layout_marginHorizontal="20dp"
+                app:layout_constraintWidth_percent="0.35"
                 app:layout_constraintBottom_toTopOf="@id/save_btn"
                 app:layout_constraintEnd_toStartOf="@id/date_field"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,19 +121,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/nav_color"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="@string/time"
                     android:inputType="time"
                     android:maxLines="1"
-                    android:textColor="@color/text_color"
-                    tools:text="12:00" />
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/date_field"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_marginBottom="20dp"
+                app:boxStrokeColor="@color/main_blue"
                 app:layout_constraintBottom_toBottomOf="@id/time_field"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/time_field"
@@ -140,10 +147,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/nav_color"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="@string/date"
                     android:inputType="date"
                     android:maxLines="1"
-                    android:textColor="@color/text_color"
-                    tools:text="01/01/2024" />
+                    android:textColor="@color/text_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
