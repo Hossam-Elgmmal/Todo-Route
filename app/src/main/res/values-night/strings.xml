@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ToDo-Route</string>
     <string name="todo">To Do</string>
@@ -5,7 +6,7 @@
     <string name="settings">Settings</string>
     <string name="mode">Night Mode</string>
     <string name="language">Language</string>
-    <string name="mode_text">Day</string>
+    <string name="mode_text">Night</string>
     <string name="lang_text">English</string>
     <string name="task_details">Task details</string>
     <string name="save">Save Changes</string>
