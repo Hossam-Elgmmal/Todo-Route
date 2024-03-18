@@ -1,4 +1,4 @@
-package com.route.todo.fragments
+package com.route.todo.fragments.settings
 
 import android.content.res.Configuration
 import android.os.Bundle

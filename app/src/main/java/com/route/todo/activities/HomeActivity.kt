@@ -1,12 +1,13 @@
-package com.route.todo
+package com.route.todo.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.route.todo.R
 import com.route.todo.databinding.ActivityHomeBinding
-import com.route.todo.fragments.AddTaskFragment
-import com.route.todo.fragments.SettingsFragment
-import com.route.todo.fragments.TasksFragment
+import com.route.todo.fragments.addtask.AddTaskFragment
+import com.route.todo.fragments.settings.SettingsFragment
+import com.route.todo.fragments.taskslist.TasksFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding

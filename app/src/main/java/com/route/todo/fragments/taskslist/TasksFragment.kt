@@ -1,4 +1,4 @@
-package com.route.todo.fragments
+package com.route.todo.fragments.taskslist
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.route.todo.DetailTaskActivity
+import com.route.todo.activities.DetailTaskActivity
 import com.route.todo.adapters.tasksAdapter
 import com.route.todo.database.TaskDao
 import com.route.todo.database.TaskDataBase
@@ -19,11 +19,11 @@ import java.time.LocalDateTime
 
 class TasksFragment : Fragment() {
 
-    lateinit var binding: FragmentTasksBinding
+    private lateinit var binding: FragmentTasksBinding
     private lateinit var adapter: tasksAdapter
     private lateinit var tasksList: MutableList<Task>
-    var today = LocalDateTime.now()
-    lateinit var taskDao: TaskDao
+    private var today = LocalDateTime.now()
+    private lateinit var taskDao: TaskDao
 
     override fun onCreateView(
         inflater: LayoutInflater,

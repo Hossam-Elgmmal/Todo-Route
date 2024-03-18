@@ -1,4 +1,4 @@
-package com.route.todo
+package com.route.todo.activities
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
