@@ -26,7 +26,7 @@ class DetailTaskActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val id = intent.getIntExtra("id", -1)
-        taskDao = TaskDataBase.getInstance(baseContext).getDao()
+        taskDao = TaskDataBase.getInstance().getDao()
         if (id > 0) getTask(id)
 
         getTimePicker(dateTime.hour, dateTime.minute)

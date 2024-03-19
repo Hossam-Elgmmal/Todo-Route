@@ -93,7 +93,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
                     date = dateTime
                 )
 
-                TaskDataBase.getInstance(requireContext())
+                TaskDataBase.getInstance()
                     .getDao()
                     .insertTask(task)
                 dateTime = dateTime.withHour(0).withMinute(0)

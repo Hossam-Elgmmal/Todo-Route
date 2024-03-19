@@ -14,16 +14,17 @@ abstract class TaskDataBase : RoomDatabase() {
 
     companion object {
         private var INSTANCE: TaskDataBase? = null
-        private val DATABASE_NAME = "Task database"
+        private const val DATABASE_NAME = "Task database"
 
-        fun getInstance(context: Context): TaskDataBase {
+        fun getInstance() = INSTANCE!!
+
+        fun init(context: Context) {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context, TaskDataBase::class.java, DATABASE_NAME)
                     .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
             }
-            return INSTANCE!!
         }
     }
 }

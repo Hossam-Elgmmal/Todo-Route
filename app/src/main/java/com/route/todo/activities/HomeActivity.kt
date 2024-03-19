@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
         binding.addBtn.setOnClickListener {
             val bottomSheet = AddTaskFragment()
             bottomSheet.onTaskAddedListener = { date ->
-                tasksFragment.tasksByDate(date)
+                tasksFragment.getTasksByDate(date)
             }
             bottomSheet.show(supportFragmentManager, null)
         }
