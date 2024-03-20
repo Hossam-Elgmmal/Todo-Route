@@ -18,4 +18,7 @@
     <string name="description">الوصف</string>
     <string name="delete">مسح</string>
     <string name="all_tasks">كل المهام</string>
+    <string name="add_new_task">أضف مهمة جديدة</string>
+    <string name="save_new_task">أحفظ مهمة جديدة</string>
+    <string name="done">تمت</string>
 </resources>

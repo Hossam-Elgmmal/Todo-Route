@@ -7,20 +7,20 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.route.todo.database.TaskDataBase
 import com.route.todo.database.models.Task
 import com.route.todo.databinding.FragmentAddTaskBinding
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class AddTaskFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentAddTaskBinding
-    private var dateTime = LocalDateTime.now()
-    private var dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-    private var timeFormat = DateTimeFormatter.ofPattern("hh:mm a")
+
     lateinit var onTaskAddedListener: (LocalDateTime) -> Unit
+
+    private lateinit var vm: AddTaskViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +28,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddTaskBinding.inflate(inflater)
+        vm = ViewModelProvider(this)[AddTaskViewModel::class.java]
         return binding.root
     }
 
@@ -38,21 +39,23 @@ class AddTaskFragment : BottomSheetDialogFragment() {
 
         writeDateToTextView()
 
-        getTimePicker(dateTime.hour, dateTime.minute)
+        getTimePicker(vm.dateTime.hour, vm.dateTime.minute)
 
-        getDatePicker(dateTime.year, dateTime.monthValue, dateTime.dayOfMonth)
+        getDatePicker(vm.dateTime.year, vm.dateTime.monthValue, vm.dateTime.dayOfMonth)
 
-        submitNewTask()
+        binding.submitBtn.setOnClickListener {
+            submitNewTask()
+        }
     }
 
     private fun writeTimeToTextView() {
         binding.theTime.text = Editable.Factory.getInstance()
-            .newEditable(dateTime.format(timeFormat))
+            .newEditable(vm.dateTime.format(vm.timeFormat))
     }
 
     private fun writeDateToTextView() {
         binding.theDate.text = Editable.Factory.getInstance()
-            .newEditable(dateTime.format(dateFormat))
+            .newEditable(vm.dateTime.format(vm.dateFormat))
     }
 
     private fun getTimePicker(hour: Int, min: Int) {
@@ -60,7 +63,7 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             val picker = TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
-                    dateTime = dateTime.withHour(hourOfDay).withMinute(minute)
+                    vm.dateTime = vm.dateTime.withHour(hourOfDay).withMinute(minute)
                     writeTimeToTextView()
                 }, hour, min, false
             )
@@ -73,8 +76,8 @@ class AddTaskFragment : BottomSheetDialogFragment() {
             val picker = DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    dateTime =
-                        dateTime.withYear(year).withMonth(month + 1).withDayOfMonth(dayOfMonth)
+                    vm.dateTime =
+                        vm.dateTime.withYear(year).withMonth(month + 1).withDayOfMonth(dayOfMonth)
                     writeDateToTextView()
                 }, year, month - 1, day
             )
@@ -84,26 +87,27 @@ class AddTaskFragment : BottomSheetDialogFragment() {
     }
 
     private fun submitNewTask() {
-        binding.submitBtn.setOnClickListener {
-            if (validateFields()) {
 
-                val task = Task(
-                    title = binding.name.text.toString(),
-                    details = binding.details.text.toString(),
-                    date = dateTime
-                )
+        if (validateFields()) {
 
-                TaskDataBase.getInstance()
-                    .getDao()
-                    .insertTask(task)
-                dateTime = dateTime.withHour(0).withMinute(0)
-                onTaskAddedListener(dateTime)
-                dismiss()
-            }
+            val task = Task(
+                title = binding.name.text.toString(),
+                details = binding.details.text.toString(),
+                date = vm.dateTime
+            )
+
+            TaskDataBase.getInstance()
+                .getDao()
+                .insertTask(task)
+            vm.dateTime = vm.dateTime.withHour(0).withMinute(0)
+            onTaskAddedListener(vm.dateTime)
+            dismiss()
         }
+
     }
+
     private fun validateFields(): Boolean {
-        if (binding.name.text?.isEmpty() == true || binding.name.text?.isBlank() == true) {
+        if (binding.name.text?.trim()?.isEmpty() == true) {
             binding.name.error = "required"
             return false
         } else {

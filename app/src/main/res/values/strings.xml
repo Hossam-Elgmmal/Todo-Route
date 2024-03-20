@@ -17,4 +17,7 @@
     <string name="description">description</string>
     <string name="delete">Delete</string>
     <string name="all_tasks">All Tasks</string>
+    <string name="add_new_task">add new task</string>
+    <string name="save_new_task">Save new task</string>
+    <string name="done">Done</string>
 </resources>
