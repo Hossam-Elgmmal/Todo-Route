@@ -20,4 +20,7 @@
     <string name="add_new_task">add new task</string>
     <string name="save_new_task">Save new task</string>
     <string name="done">Done</string>
+    <string name="lang_code">ar</string>
+    <string name="lang_name">العربية</string>
+    <string name="alt_mode_text">Night</string>
 </resources>

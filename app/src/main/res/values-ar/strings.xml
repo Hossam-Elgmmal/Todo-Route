@@ -18,4 +18,10 @@
     <string name="description">الوصف</string>
     <string name="delete">مسح</string>
     <string name="all_tasks">كل المهام</string>
+    <string name="add_new_task">أضف مهمة جديدة</string>
+    <string name="save_new_task">حفظ مهمة جديدة</string>
+    <string name="done">تمت</string>
+    <string name="lang_code">en</string>
+    <string name="lang_name">English</string>
+    <string name="alt_mode_text">ليل</string>
 </resources>
