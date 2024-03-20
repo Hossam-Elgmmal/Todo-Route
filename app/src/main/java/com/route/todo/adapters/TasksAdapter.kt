@@ -11,8 +11,8 @@ import com.route.todo.database.models.Task
 import com.route.todo.databinding.ItemTaskBinding
 import java.time.format.DateTimeFormatter
 
-class tasksAdapter(private var tasksList: MutableList<Task>?) :
-    Adapter<tasksAdapter.TaskViewHolder>() {
+class TasksAdapter(private var tasksList: MutableList<Task>) :
+    Adapter<TasksAdapter.TaskViewHolder>() {
 
     lateinit var onDeleteListener: (Task, Int) -> Unit
     lateinit var onDoneListener: (Task, Int) -> Unit
@@ -25,35 +25,41 @@ class tasksAdapter(private var tasksList: MutableList<Task>?) :
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val item = tasksList?.get(position) ?: return
-        holder.bind(item)
+        val taskItem = tasksList[position]
+        holder.bind(taskItem)
         holder.binding.deleteView.setOnClickListener {
-            onDeleteListener(item, holder.adapterPosition)
+            onDeleteListener(taskItem, holder.adapterPosition)
+            tasksList.remove(taskItem)
         }
         holder.binding.doneView.setOnClickListener {
-            onDoneListener(item, holder.adapterPosition)
+            onDoneListener(taskItem, holder.adapterPosition)
         }
         holder.binding.cardDragged.setOnClickListener {
-            onCardClickListener(item, position)
+            onCardClickListener(taskItem, position)
         }
 
     }
 
-    override fun getItemCount() = tasksList?.size ?: 0
+    override fun getItemCount() = tasksList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(tasksList: MutableList<Task>?) {
-        this.tasksList = tasksList
+    fun updateData(newTasksList: List<Task>?) {
+        tasksList.clear()
+        if (newTasksList != null) {
+            tasksList.addAll(newTasksList)
+        }
         notifyDataSetChanged()
     }
 
     class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root) {
 
         private var timeFormat = DateTimeFormatter.ofPattern("E hh:mm a dd/MM/yyyy")
-        val greenRect = ContextCompat.getDrawable(this.itemView.context, R.drawable.green_rect)
-        val blueRect = ContextCompat.getDrawable(this.itemView.context, R.drawable.blue_rect)
-        val green = ContextCompat.getColor(this.itemView.context, R.color.green_color)
-        val blue = ContextCompat.getColor(this.itemView.context, R.color.main_blue)
+        private val greenRect =
+            ContextCompat.getDrawable(this.itemView.context, R.drawable.green_rect)
+        private val blueRect =
+            ContextCompat.getDrawable(this.itemView.context, R.drawable.blue_rect)
+        private val green = ContextCompat.getColor(this.itemView.context, R.color.green_color)
+        private val blue = ContextCompat.getColor(this.itemView.context, R.color.main_blue)
         fun bind(task: Task) {
             binding.taskText.text = task.title
             binding.timeText.text = task.date?.format(timeFormat)

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.route.todo.activities.DetailTaskActivity
-import com.route.todo.adapters.tasksAdapter
+import com.route.todo.adapters.TasksAdapter
 import com.route.todo.databinding.FragmentTasksBinding
 import java.time.LocalDateTime
 
@@ -18,7 +18,7 @@ import java.time.LocalDateTime
 class TasksFragment : Fragment() {
 
     private lateinit var binding: FragmentTasksBinding
-    private lateinit var adapter: tasksAdapter
+    private lateinit var adapter: TasksAdapter
     private lateinit var vm: TasksViewModel
 
     override fun onCreateView(
@@ -35,27 +35,30 @@ class TasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeRecyclerView()
+
         binding.calendarView.setOnDateChangedListener { _, date, _ ->
             vm.getTasksByCalendarDay(date)
-            adapter.updateData(vm.tasksList)
         }
+
         binding.calendarView.setOnTitleClickListener {
             showAllTasks()
         }
+
         binding.allTasks.setOnClickListener {
             hideAllTasks()
         }
 
+        subscribeToTasksLiveData()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun initializeRecyclerView() {
 
         vm.today = vm.today.withHour(0).withMinute(0)
-        adapter = tasksAdapter(null)
+        adapter = TasksAdapter(mutableListOf())
 
         adapter.onDeleteListener = { task, position ->
-            vm.deleteTask(task, position)
+            vm.deleteTask(task)
             adapter.notifyItemRemoved(position)
         }
 
@@ -81,9 +84,11 @@ class TasksFragment : Fragment() {
         binding.calendarView.selectedDate = day
         binding.calendarView.setCurrentDate(day, true)
 
+        if (binding.allTasks.visibility == View.VISIBLE) {
+            binding.allTasks.visibility = View.GONE
+            binding.calendarView.visibility = View.VISIBLE
+        }
         vm.getTasksByLocalDate(date)
-        adapter.updateData(vm.tasksList)
-
     }
 
     private fun showAllTasks() {
@@ -91,7 +96,6 @@ class TasksFragment : Fragment() {
         binding.calendarView.visibility = View.GONE
         binding.allTasks.visibility = View.VISIBLE
         vm.getAllTasks()
-        adapter.updateData(vm.tasksList)
 
     }
 
@@ -102,7 +106,12 @@ class TasksFragment : Fragment() {
         binding.calendarView.selectedDate?.let {
             val dateTime = LocalDateTime.of(it.year, it.month, it.day, 0, 0)
             vm.getTasksByLocalDate(dateTime)
-            adapter.updateData(vm.tasksList)
+        }
+    }
+
+    private fun subscribeToTasksLiveData() {
+        vm.tasksList.observe(viewLifecycleOwner) { tasksList ->
+            adapter.updateData(tasksList)
 
         }
     }

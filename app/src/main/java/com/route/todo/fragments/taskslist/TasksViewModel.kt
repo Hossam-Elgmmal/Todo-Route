@@ -1,5 +1,6 @@
 package com.route.todo.fragments.taskslist
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.route.todo.database.TaskDataBase
@@ -8,7 +9,7 @@ import java.time.LocalDateTime
 
 class TasksViewModel : ViewModel() {
 
-    lateinit var tasksList: MutableList<Task>
+    val tasksList = MutableLiveData<List<Task>>(emptyList())
     var today: LocalDateTime = LocalDateTime.now()
     private val taskDao = TaskDataBase.getInstance().getDao()
 
@@ -19,16 +20,15 @@ class TasksViewModel : ViewModel() {
 
     fun getTasksByLocalDate(dateTime: LocalDateTime) {
 
-        tasksList = taskDao.getTasksInDay(dateTime, dateTime.plusDays(1)).toMutableList()
+        tasksList.value = taskDao.getTasksInDay(dateTime, dateTime.plusDays(1))
     }
 
     fun getAllTasks() {
-        tasksList = taskDao.getAllTasks().toMutableList()
+        tasksList.value = taskDao.getAllTasks()
     }
 
-    fun deleteTask(task: Task, position: Int) {
+    fun deleteTask(task: Task) {
         taskDao.deleteTask(task)
-        tasksList.removeAt(position)
     }
 
     fun toggleTaskDone(task: Task) {
