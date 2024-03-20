@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.route.todo.R
 import com.route.todo.database.models.Task
 import com.route.todo.databinding.ItemTaskBinding
-import java.time.format.DateTimeFormatter
 
 class TasksAdapter(private var tasksList: MutableList<Task>) :
     Adapter<TasksAdapter.TaskViewHolder>() {
@@ -53,7 +52,6 @@ class TasksAdapter(private var tasksList: MutableList<Task>) :
 
     class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root) {
 
-        private var timeFormat = DateTimeFormatter.ofPattern("E hh:mm a dd/MM/yyyy")
         private val greenRect =
             ContextCompat.getDrawable(this.itemView.context, R.drawable.green_rect)
         private val blueRect =
@@ -61,8 +59,9 @@ class TasksAdapter(private var tasksList: MutableList<Task>) :
         private val green = ContextCompat.getColor(this.itemView.context, R.color.green_color)
         private val blue = ContextCompat.getColor(this.itemView.context, R.color.main_blue)
         fun bind(task: Task) {
-            binding.taskText.text = task.title
-            binding.timeText.text = task.date?.format(timeFormat)
+            binding.task = task
+            binding.executePendingBindings()
+
             binding.doneView.background = if (task.isDone) greenRect else blueRect
 
             binding.lineDrag.background = if (task.isDone)

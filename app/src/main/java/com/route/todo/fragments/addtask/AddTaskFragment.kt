@@ -3,23 +3,18 @@ package com.route.todo.fragments.addtask
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.route.todo.database.TaskDataBase
-import com.route.todo.database.models.Task
 import com.route.todo.databinding.FragmentAddTaskBinding
 import java.time.LocalDateTime
 
 class AddTaskFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentAddTaskBinding
-
     lateinit var onTaskAddedListener: (LocalDateTime) -> Unit
-
     private lateinit var vm: AddTaskViewModel
 
     override fun onCreateView(
@@ -28,92 +23,62 @@ class AddTaskFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddTaskBinding.inflate(inflater)
+        binding.lifecycleOwner = viewLifecycleOwner
         vm = ViewModelProvider(this)[AddTaskViewModel::class.java]
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        writeTimeToTextView()
-
-        writeDateToTextView()
-
-        getTimePicker(vm.dateTime.hour, vm.dateTime.minute)
-
-        getDatePicker(vm.dateTime.year, vm.dateTime.monthValue, vm.dateTime.dayOfMonth)
-
-        binding.submitBtn.setOnClickListener {
-            submitNewTask()
-        }
-    }
-
-    private fun writeTimeToTextView() {
-        binding.theTime.text = Editable.Factory.getInstance()
-            .newEditable(vm.dateTime.format(vm.timeFormat))
-    }
-
-    private fun writeDateToTextView() {
-        binding.theDate.text = Editable.Factory.getInstance()
-            .newEditable(vm.dateTime.format(vm.dateFormat))
-    }
-
-    private fun getTimePicker(hour: Int, min: Int) {
+        binding.vm = vm
         binding.theTime.setOnClickListener {
-            val picker = TimePickerDialog(
-                requireContext(),
-                { _, hourOfDay, minute ->
-                    vm.dateTime = vm.dateTime.withHour(hourOfDay).withMinute(minute)
-                    writeTimeToTextView()
-                }, hour, min, false
-            )
-            picker.show()
+            getTimePicker()
         }
-    }
-
-    private fun getDatePicker(year: Int, month: Int, day: Int) {
         binding.theDate.setOnClickListener {
-            val picker = DatePickerDialog(
-                requireContext(),
-                { _, year, month, dayOfMonth ->
-                    vm.dateTime =
-                        vm.dateTime.withYear(year).withMonth(month + 1).withDayOfMonth(dayOfMonth)
-                    writeDateToTextView()
-                }, year, month - 1, day
-            )
-            picker.datePicker.minDate = System.currentTimeMillis()
-            picker.show()
+            getDatePicker()
         }
+        subscribeToLiveData()
     }
 
-    private fun submitNewTask() {
-
-        if (validateFields()) {
-
-            val task = Task(
-                title = binding.name.text.toString(),
-                details = binding.details.text.toString(),
-                date = vm.dateTime
-            )
-
-            TaskDataBase.getInstance()
-                .getDao()
-                .insertTask(task)
-            vm.dateTime = vm.dateTime.withHour(0).withMinute(0)
-            onTaskAddedListener(vm.dateTime)
-            dismiss()
-        }
-
+    private fun getTimePicker() {
+        val picker = TimePickerDialog(
+            requireContext(),
+            { _, hourOfDay, minute ->
+                vm.dateLiveData.value =
+                    vm.dateLiveData.value!!
+                        .withHour(hourOfDay)
+                        .withMinute(minute)
+            }, vm.dateLiveData.value!!.hour, vm.dateLiveData.value!!.minute, false
+        )
+        picker.show()
     }
 
-    private fun validateFields(): Boolean {
-        if (binding.name.text?.trim()?.isEmpty() == true) {
-            binding.name.error = "required"
-            return false
-        } else {
-            binding.name.error = null
-        }
+    private fun getDatePicker() {
+        val picker = DatePickerDialog(
+            requireContext(),
+            { _, newYear, newMonth, dayOfMonth ->
+                vm.dateLiveData.value =
+                    vm.dateLiveData.value!!
+                        .withYear(newYear)
+                        .withMonth(newMonth + 1)
+                        .withDayOfMonth(dayOfMonth)
+            },
+            vm.dateLiveData.value!!.year,
+            vm.dateLiveData.value!!.monthValue - 1,
+            vm.dateLiveData.value!!.dayOfMonth
+        )
+        picker.datePicker.minDate = System.currentTimeMillis()
+        picker.show()
+    }
 
-        return true
+    private fun subscribeToLiveData() {
+        vm.isDoneLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                vm.dateLiveData.value = vm.dateLiveData.value!!.withHour(0).withMinute(0)
+                onTaskAddedListener(vm.dateLiveData.value!!)
+                dismiss()
+            }
+        }
     }
 }

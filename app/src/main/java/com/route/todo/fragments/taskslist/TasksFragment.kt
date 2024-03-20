@@ -1,6 +1,5 @@
 package com.route.todo.fragments.taskslist
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,7 +50,6 @@ class TasksFragment : Fragment() {
         subscribeToTasksLiveData()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun initializeRecyclerView() {
 
         vm.today = vm.today.withHour(0).withMinute(0)
